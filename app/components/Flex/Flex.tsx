@@ -19,6 +19,7 @@ export interface FlexProps extends BoxProps {
     | "space-evenly"
     | "center";
   alignItems?: "flex-start" | "flex-end" | "center" | "baseline";
+  flexWrap?: "wrap" | "nowrap" | "wrap-reverse";
 }
 
 export const Flex = ({

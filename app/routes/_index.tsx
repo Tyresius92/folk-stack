@@ -1,5 +1,13 @@
 import type { V2_MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import {
+  Box,
+  ExternalLink,
+  Flex,
+  Heading,
+  InternalLink,
+  Text,
+} from "~/components";
 
 import { useOptionalUser } from "~/utils";
 
@@ -9,46 +17,60 @@ export default function Index() {
   const user = useOptionalUser();
   return (
     <main>
-      <div>
-        <div>
-          <div>
-            <div>
-              <img
-                src="https://user-images.githubusercontent.com/1500684/158276320-c46b661b-8eff-4a4d-82c6-cf296c987a12.jpg"
-                alt="BB King playing blues on his Gibson 'Lucille' guitar"
-              />
-              <div />
-            </div>
-            <div>
-              <h1>
-                <span>Folk Stack</span>
-              </h1>
-              <p>
-                Check the README.md file for instructions on how to get this
-                project deployed.
-              </p>
-              <div>
-                {user ? (
-                  <Link to="/notes">View Notes for {user.email}</Link>
-                ) : (
-                  <div>
-                    <Link to="/join">Sign up</Link>
-                    <Link to="/login">Log In</Link>
-                  </div>
-                )}
-              </div>
-              <a href="https://remix.run">
+      <Box p={6}>
+        <Box>
+          <Box>
+            <Box>
+              <Flex flexDirection="column" alignItems="center">
+                <Heading>Folk Stack</Heading>
+                <Box>
+                  {user ? (
+                    <Link to="/notes">View Notes for {user.email}</Link>
+                  ) : (
+                    <Flex justifyContent="center" gap={6}>
+                      <InternalLink to="/join">Sign up</InternalLink>
+                      <InternalLink to="/login">Log In</InternalLink>
+                    </Flex>
+                  )}
+                </Box>
+                <Text>
+                  Check the README.md file for instructions on how to get this
+                  project deployed.
+                </Text>
+              </Flex>
+              <Box>
                 <img
-                  src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
-                  alt="Remix"
+                  src="https://image.pbs.org/poster_images/assets/The-Fiddle-and-the-Banjo-Origins-thumb.png"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    objectFit: "cover",
+                    maxHeight: 800,
+                    borderRadius: "var(--border-radius-4)",
+                  }}
                 />
-              </a>
-            </div>
-          </div>
-        </div>
+              </Box>
+              <Flex
+                bg="blue-800"
+                justifyContent="center"
+                p={8}
+                my={4}
+                borderRadius={4}
+              >
+                <ExternalLink href="https://remix.run">
+                  <img
+                    src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
+                    alt="Remix"
+                    height={200}
+                  />
+                </ExternalLink>
+              </Flex>
+            </Box>
+          </Box>
+        </Box>
 
-        <div>
-          <div>
+        <Box>
+          <Flex gap={8} flexWrap="wrap">
             {[
               {
                 src: "https://user-images.githubusercontent.com/1500684/157764397-ccd8ea10-b8aa-4772-a99b-35de937319e1.svg",
@@ -101,13 +123,21 @@ export default function Index() {
                 href: "https://typescriptlang.org",
               },
             ].map((img) => (
-              <a key={img.href} href={img.href}>
-                <img alt={img.alt} src={img.src} />
-              </a>
+              <ExternalLink key={img.href} href={img.href}>
+                <img
+                  alt={img.alt}
+                  src={img.src}
+                  style={{
+                    height: "var(--space-7)",
+                    width: "var(--space--10)",
+                    objectFit: "contain",
+                  }}
+                />
+              </ExternalLink>
             ))}
-          </div>
-        </div>
-      </div>
+          </Flex>
+        </Box>
+      </Box>
     </main>
   );
 }

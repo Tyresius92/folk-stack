@@ -2,6 +2,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Box, Button, TextArea, TextInput } from "~/components";
 
 import { createNote } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
@@ -55,42 +56,24 @@ export default function NewNotePage() {
         width: "100%",
       }}
     >
-      <div>
-        <label>
-          <span>Title: </span>
-          <input
-            ref={titleRef}
-            name="title"
-            aria-invalid={actionData?.errors?.title ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.title ? "title-error" : undefined
-            }
-          />
-        </label>
-        {actionData?.errors?.title ? (
-          <div>{actionData.errors.title}</div>
-        ) : null}
-      </div>
+      <TextInput
+        label="Title"
+        type="text"
+        ref={titleRef}
+        name="title"
+        errorMessage={actionData?.errors?.title ?? undefined}
+      />
 
-      <div>
-        <label>
-          <span>Body: </span>
-          <textarea
-            ref={bodyRef}
-            name="body"
-            rows={8}
-            aria-invalid={actionData?.errors?.body ? true : undefined}
-            aria-errormessage={
-              actionData?.errors?.body ? "body-error" : undefined
-            }
-          />
-        </label>
-        {actionData?.errors?.body ? <div>{actionData.errors.body}</div> : null}
-      </div>
+      <TextArea
+        label="Body"
+        name="body"
+        rows={8}
+        errorMessage={actionData?.errors?.body ?? undefined}
+      />
 
-      <div>
-        <button type="submit">Save</button>
-      </div>
+      <Box>
+        <Button type="submit">Save</Button>
+      </Box>
     </Form>
   );
 }

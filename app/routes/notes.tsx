@@ -1,6 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { Form, Outlet, useLoaderData } from "@remix-run/react";
+import { Box, Button, Flex, Heading, InternalLink, Text } from "~/components";
 
 import { getNoteListItems } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
@@ -17,47 +18,50 @@ export default function NotesPage() {
   const user = useUser();
 
   return (
-    <div>
+    <Box>
       <header>
-        <h1>
-          <Link to=".">Notes</Link>
-        </h1>
-        <p>{user.email}</p>
-        <Form action="/logout" method="post">
-          <button type="submit">Logout</button>
-        </Form>
+        <Flex
+          py={1}
+          px={6}
+          bg="blue-200"
+          justifyContent="space-between"
+          alignItems="baseline"
+        >
+          <Heading>
+            <InternalLink to=".">Notes</InternalLink>
+          </Heading>
+          <Flex alignItems="baseline" gap={4}>
+            <Text>{user.email}</Text>
+            <Form action="/logout" method="post">
+              <Button type="submit">Logout</Button>
+            </Form>
+          </Flex>
+        </Flex>
       </header>
 
       <main>
-        <div>
-          <Link to="new">+ New Note</Link>
+        <Box p={6}>
+          <InternalLink to="new">+ New Note</InternalLink>
 
           <hr />
 
           {data.noteListItems.length === 0 ? (
-            <p>No notes yet</p>
+            <Text>No notes yet</Text>
           ) : (
             <ol>
               {data.noteListItems.map((note) => (
                 <li key={note.id}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
-                    }
-                    to={note.id}
-                  >
-                    📝 {note.title}
-                  </NavLink>
+                  <InternalLink to={note.id}>📝 {note.title}</InternalLink>
                 </li>
               ))}
             </ol>
           )}
-        </div>
+        </Box>
 
-        <div>
+        <Box p={6}>
           <Outlet />
-        </div>
+        </Box>
       </main>
-    </div>
+    </Box>
   );
 }

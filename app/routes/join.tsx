@@ -2,6 +2,7 @@ import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
+import { Box, Button, InternalLink, TextInput } from "~/components";
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { createUserSession, getUserId } from "~/session.server";
@@ -81,64 +82,45 @@ export default function Join() {
   }, [actionData]);
 
   return (
-    <div>
-      <div>
-        <Form method="post">
-          <div>
-            <label htmlFor="email">Email address</label>
-            <div>
-              <input
-                ref={emailRef}
-                id="email"
-                required
-                autoFocus={true}
-                name="email"
-                type="email"
-                autoComplete="email"
-                aria-invalid={actionData?.errors?.email ? true : undefined}
-                aria-describedby="email-error"
-              />
-              {actionData?.errors?.email ? (
-                <div>{actionData.errors.email}</div>
-              ) : null}
-            </div>
-          </div>
+    <Box p={6}>
+      <Form method="post">
+        <TextInput
+          label="Email address"
+          ref={emailRef}
+          name="email"
+          required
+          autoFocus={true}
+          type="email"
+          autoComplete="email"
+          errorMessage={actionData?.errors?.email ?? undefined}
+        />
 
-          <div>
-            <label htmlFor="password">Password</label>
-            <div>
-              <input
-                id="password"
-                ref={passwordRef}
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                aria-invalid={actionData?.errors?.password ? true : undefined}
-                aria-describedby="password-error"
-              />
-              {actionData?.errors?.password ? (
-                <div>{actionData.errors.password}</div>
-              ) : null}
-            </div>
-          </div>
+        <TextInput
+          label="Password"
+          ref={passwordRef}
+          name="password"
+          required
+          type="password"
+          autoComplete="new-password"
+          errorMessage={actionData?.errors?.password ?? undefined}
+        />
 
-          <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button type="submit">Create Account</button>
-          <div>
-            <div>
-              Already have an account?{" "}
-              <Link
-                to={{
-                  pathname: "/login",
-                  search: searchParams.toString(),
-                }}
-              >
-                Log in
-              </Link>
-            </div>
-          </div>
-        </Form>
-      </div>
-    </div>
+        <input type="hidden" name="redirectTo" value={redirectTo} />
+        <Button type="submit">Create Account</Button>
+        <Box>
+          <Box>
+            Already have an account?{" "}
+            <InternalLink
+              to={{
+                pathname: "/login",
+                search: searchParams.toString(),
+              }}
+            >
+              Log in
+            </InternalLink>
+          </Box>
+        </Box>
+      </Form>
+    </Box>
   );
 }

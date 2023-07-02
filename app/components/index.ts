@@ -10,6 +10,7 @@ import { links as linkLinks } from "./Link/sharedLink";
 import { links as navbarLinks } from "./Navbar/Navbar";
 import { links as subheadingLinks } from "./Subheading/Subheading";
 import { links as textLinks } from "./Text/Text";
+import { links as textAreaLinks } from "./TextArea/TextArea";
 import { links as textInputLinks } from "./TextInput/TextInput";
 
 export { Box } from "./Box/Box";
@@ -43,6 +44,9 @@ export type { SubheadingProps } from "./Subheading/Subheading";
 export { Text } from "./Text/Text";
 export type { TextProps } from "./Text/Text";
 
+export { TextArea } from "./TextArea/TextArea";
+export type { TextAreaProps } from "./TextArea/TextArea";
+
 export { TextInput } from "./TextInput/TextInput";
 export type { TextInputProps } from "./TextInput/TextInput";
 
@@ -57,5 +61,6 @@ export const componentLibraryLinks: LinksFunction = () => [
   ...navbarLinks(),
   ...subheadingLinks(),
   ...textLinks(),
+  ...textAreaLinks(),
   ...textInputLinks(),
 ];

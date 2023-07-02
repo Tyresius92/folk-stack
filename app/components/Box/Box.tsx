@@ -2,8 +2,10 @@ import React, { createContext, useContext } from "react";
 import type { ColorVariant } from "~/colors";
 import type { ContrastRatios } from "../__internal__/colorContrastUtils";
 import type { LinksFunction } from "@remix-run/server-runtime";
-import { AcceptableContrastRatios } from "../__internal__/colorContrastUtils";
-import { getContrastColor } from "../__internal__/colorContrastUtils";
+import {
+  AcceptableContrastRatios,
+  getContrastColor,
+} from "../__internal__/colorContrastUtils";
 import styles from "./Box.css";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
@@ -27,33 +29,27 @@ export type SpaceOption =
   | 15
   | 16;
 
-export interface ResponsiveSpaceOption {
-  xxs?: SpaceOption;
-  xs?: SpaceOption;
-  s?: SpaceOption;
-  m?: SpaceOption;
-  l?: SpaceOption;
-  xl?: SpaceOption;
-  xxl?: SpaceOption;
-}
+export type BorderRadiusOption = 0 | 1 | 2 | 3 | 4 | "full";
 
 export interface InternalBoxProps {
   children: React.ReactNode;
-  p?: SpaceOption | ResponsiveSpaceOption;
-  py?: SpaceOption | ResponsiveSpaceOption;
-  pt?: SpaceOption | ResponsiveSpaceOption;
-  pb?: SpaceOption | ResponsiveSpaceOption;
-  px?: SpaceOption | ResponsiveSpaceOption;
-  pl?: SpaceOption | ResponsiveSpaceOption;
-  pr?: SpaceOption | ResponsiveSpaceOption;
+  p?: SpaceOption;
+  py?: SpaceOption;
+  pt?: SpaceOption;
+  pb?: SpaceOption;
+  px?: SpaceOption;
+  pl?: SpaceOption;
+  pr?: SpaceOption;
 
-  m?: SpaceOption | ResponsiveSpaceOption;
-  my?: SpaceOption | ResponsiveSpaceOption;
-  mt?: SpaceOption | ResponsiveSpaceOption;
-  mb?: SpaceOption | ResponsiveSpaceOption;
-  mx?: SpaceOption | ResponsiveSpaceOption;
-  ml?: SpaceOption | ResponsiveSpaceOption;
-  mr?: SpaceOption | ResponsiveSpaceOption;
+  m?: SpaceOption;
+  my?: SpaceOption;
+  mt?: SpaceOption;
+  mb?: SpaceOption;
+  mx?: SpaceOption;
+  ml?: SpaceOption;
+  mr?: SpaceOption;
+
+  borderRadius?: BorderRadiusOption;
 
   className?: string;
   style?: React.CSSProperties;
@@ -90,6 +86,7 @@ export const InternalBox = ({
   mt = my,
   mb = my,
   bg = undefined,
+  borderRadius,
   className,
   style,
   ...rest
@@ -115,6 +112,9 @@ export const InternalBox = ({
               "gray-800",
               AcceptableContrastRatios.TEXT
             )})`,
+          }),
+          ...(borderRadius && {
+            borderRadius: `var(--border-radius-${borderRadius})`,
           }),
         } as React.CSSProperties
       }

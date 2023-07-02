@@ -5,3 +5,7 @@
 .link-component:hover {
   text-decoration: none;
 }
+
+.link-component:visited {
+  color: var(--link-contrast-color);
+}

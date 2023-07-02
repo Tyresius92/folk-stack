@@ -7,6 +7,7 @@ import {
   useRouteError,
 } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import { Box, Button, Heading, Subheading, Text } from "~/components";
 
 import { deleteNote, getNote } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
@@ -35,14 +36,16 @@ export default function NoteDetailsPage() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div>
-      <h3>{data.note.title}</h3>
-      <p>{data.note.body}</p>
+    <Box>
+      <Subheading>{data.note.title}</Subheading>
+      <Text>{data.note.body}</Text>
       <hr />
       <Form method="post">
-        <button type="submit">Delete</button>
+        <Button type="submit" variant="danger">
+          Delete
+        </Button>
       </Form>
-    </div>
+    </Box>
   );
 }
 
@@ -50,16 +53,16 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   if (error instanceof Error) {
-    return <div>An unexpected error occurred: {error.message}</div>;
+    return <Box>An unexpected error occurred: {error.message}</Box>;
   }
 
   if (!isRouteErrorResponse(error)) {
-    return <h1>Unknown Error</h1>;
+    return <Heading>Unknown Error</Heading>;
   }
 
   if (error.status === 404) {
-    return <div>Note not found</div>;
+    return <Box>Note not found</Box>;
   }
 
-  return <div>An unexpected error occurred: {error.statusText}</div>;
+  return <Box>An unexpected error occurred: {error.statusText}</Box>;
 }
