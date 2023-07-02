@@ -7,7 +7,6 @@ import { links as flexLinks } from "./Flex/Flex";
 import { links as gridLinks } from "./Grid/Grid";
 import { links as headingLinks } from "./Heading/Heading";
 import { links as linkLinks } from "./Link/sharedLink";
-import { links as navbarLinks } from "./Navbar/Navbar";
 import { links as subheadingLinks } from "./Subheading/Subheading";
 import { links as textLinks } from "./Text/Text";
 import { links as textAreaLinks } from "./TextArea/TextArea";
@@ -36,8 +35,6 @@ export type { ExternalLinkProps } from "./Link/ExternalLink";
 export { InternalLink } from "./Link/InternalLink";
 export type { InternalLinkProps } from "./Link/InternalLink";
 
-export { Navbar } from "./Navbar/Navbar";
-
 export { Subheading } from "./Subheading/Subheading";
 export type { SubheadingProps } from "./Subheading/Subheading";
 
@@ -58,7 +55,6 @@ export const componentLibraryLinks: LinksFunction = () => [
   ...gridLinks(),
   ...headingLinks(),
   ...linkLinks(),
-  ...navbarLinks(),
   ...subheadingLinks(),
   ...textLinks(),
   ...textAreaLinks(),
