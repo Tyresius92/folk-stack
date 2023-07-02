@@ -9,10 +9,16 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import resetStylesheet from './reset.css'
+import themeStylesheet from './theme.css'
+import { componentLibraryLinks } from "./components";
 
 import { getUser } from "~/session.server";
 
 export const links: LinksFunction = () => [
+  {rel: 'stylesheet', href: resetStylesheet},
+  {rel: 'stylesheet', href: themeStylesheet},
+  ...componentLibraryLinks(),
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 

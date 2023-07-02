@@ -1,0 +1,15 @@
+.text-component {
+  color: var(--text-contrast-color);
+}
+
+.text-component-italic {
+  font-style: italic;
+}
+
+.text-component-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.text-component-color-span {
+  color: var(--text-contrast-color);
+}
